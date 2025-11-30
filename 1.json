@@ -1,0 +1,23 @@
+[
+  {
+    "char": "日",
+    "pinyin": "rì",
+    "meaning": "太阳，表示白天。",
+    "words": ["日出", "日光", "今日"],
+    "lessonSentence": "天上的<span>日</span>亮亮的。"
+  },
+  {
+    "char": "月",
+    "pinyin": "yuè",
+    "meaning": "月亮，表示夜晚。",
+    "words": ["月亮", "月光", "一月"],
+    "lessonSentence": "弯弯的<span>月</span>挂在天上。"
+  },
+  {
+    "char": "山",
+    "pinyin": "shān",
+    "meaning": "高高的山。",
+    "words": ["山路", "高山", "山洞"],
+    "lessonSentence": "远处有高高的<span>山</span>。"
+  }
+]

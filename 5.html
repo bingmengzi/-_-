@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>生字笔顺系统（自动加载 JSON）</title>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5.0/dist/hanzi-writer.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  background: #f6f7ff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.wrapper {
+  max-width: 960px;
+  margin: auto;
+}
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #374151;
+}
+.top-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: none;
+  background: #e5e7eb;
+  font-size: 0.9rem;
+}
+.btn.primary {
+  background: #ff9800;
+  color: #fff;
+}
+.display-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+.char-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.tianzige {
+  width: 260px;
+  height: 260px;
+  border-radius: 12px;
+  border: 5px solid #ffcc80;
+  background: #fff5e6;
+  position: relative;
+}
+.tianzige::before,
+.tianzige::after {
+  content: '';
+  position: absolute;
+  background: #aaa;
+}
+.tianzige::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+.tianzige::after {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+}
+.info-box {
+  flex: 1;
+  min-width: 260px;
+}
+.section {
+  background: #f9fafb;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.92rem;
+}
+.section-title {
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+.chip {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: #eef2ff;
+  margin-right: 6px;
+  font-size: 0.82rem;
+}
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 8px;
+  margin-top: 15px;
+}
+.char-item {
+  background: #f3f4f6;
+  padding: 6px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.char-item.active {
+  background: #4f46e5;
+  color: #fff;
+}
+.p {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="title">📚 生字笔顺系统（自动加载 JSON）</div>
+
+  <div class="top-controls">
+    <button class="btn" id="prevBtn">⬅ 上一个</button>
+    <button class="btn" id="nextBtn">下一个 ➡</button>
+    <button class="btn primary" id="speakBtn">🔊 朗读</button>
+  </div>
+
+  <div id="display" class="display-box"></div>
+
+  <div id="charGrid" class="char-grid"></div>
+</div>
+
+<script>
+let charData = [];
+let currentIndex = 0;
+let writer = null;
+
+// 获取 URL 参数 ?file=xxx.json
+function getJsonURL() {
+  const params = new URLSearchParams(location.search);
+  return params.get("file") || "1.json";
+}
+
+// 用中文朗读汉字
+function speakChinese(text) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "zh-CN";
+  u.rate = 0.9;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// 主渲染函数
+function renderChar(index) {
+  currentIndex = index;
+  const item = charData[index];
+  const display = document.getElementById("display");
+
+  display.innerHTML = `
+    <div class="char-layout">
+      <div>
+        <div class="tianzige">
+          <div id="writerTarget" style="width:100%;height:100%;"></div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="section">
+          <div class="section-title">基础信息</div>
+          <div><strong>字：</strong>${item.char}</div>
+          <div><strong>拼音：</strong>${item.pinyin}</div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">字义</div>
+          ${item.meaning}
+        </div>
+
+        <div class="section">
+          <div class="section-title">组词</div>
+          ${(item.words||[]).map(w=>`<span class="chip">${w}</span>`).join("")}
+        </div>
+
+        <div class="section">
+          <div class="section-title">例句</div>
+          ${item.lessonSentence}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // 初始化 HanziWriter
+  if (!writer) {
+    writer = HanziWriter.create("writerTarget", item.char, {
+      width: 260,
+      height: 260,
+      padding: 10,
+      strokeColor: "#ef4444",
+      outlineColor: "#d1d5db",
+      strokeWidth: 4
+    });
+  } else {
+    writer.setCharacter(item.char);
+  }
+
+  writer.loopCharacterAnimation();
+
+  // 更新右侧列表高亮
+  [...document.querySelectorAll(".char-item")].forEach((el,i)=>{
+    el.classList.toggle("active", i===index);
+  });
+}
+
+// 渲染右侧列表
+function renderGrid() {
+  const grid = document.getElementById("charGrid");
+  grid.innerHTML = "";
+  charData.forEach((c,i)=>{
+    const div = document.createElement("div");
+    div.className = "char-item";
+    div.innerHTML = `<div>${c.char}</div><div class="p">${c.pinyin}</div>`;
+    div.onclick = ()=>renderChar(i);
+    grid.appendChild(div);
+  });
+}
+
+// 绑定按钮
+document.getElementById("prevBtn").onclick = ()=>{
+  renderChar((currentIndex - 1 + charData.length) % charData.length);
+};
+document.getElementById("nextBtn").onclick = ()=>{
+  renderChar((currentIndex + 1) % charData.length);
+};
+document.getElementById("speakBtn").onclick = ()=>{
+  speakChinese(charData[currentIndex].char);
+};
+
+// 初始化
+fetch(getJsonURL())
+  .then(r=>r.json())
+  .then(data=>{
+    charData = data;
+    renderGrid();
+    renderChar(0);
+  });
+</script>
+
+</body>
+</html>
