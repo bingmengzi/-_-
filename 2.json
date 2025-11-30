@@ -1,0 +1,44 @@
+[
+  {
+    "char": "水",
+    "pinyin": "shuǐ",
+    "radical": "水",
+    "structure": "独体字",
+    "strokeCount": 4,
+    "shapeNote": "像水滴流下，有水花。",
+    "meaning": "水，江河湖海里的水。",
+    "words": ["河水", "水流"],
+    "lessonSentence": "雨后的<span>水</span>很清。",
+    "extraSentence": "多喝<span>水</span>有益健康。",
+    "teachingTips": "注意最后一捺舒展。",
+    "funNote": "很多“氵”旁的字与水有关。"
+  },
+  {
+    "char": "火",
+    "pinyin": "huǒ",
+    "radical": "火",
+    "structure": "独体字",
+    "strokeCount": 4,
+    "shapeNote": "像跳动的火苗。",
+    "meaning": "火焰、火。",
+    "words": ["火苗", "火车"],
+    "lessonSentence": "晚上的篝<span>火</span>很亮。",
+    "extraSentence": "不要玩<span>火</span>，很危险。",
+    "teachingTips": "两点稍外撇。",
+    "funNote": "火旁字大多与热相关。"
+  },
+  {
+    "char": "娇柔造作",
+    "pinyin": "jiāo róu zào zuò",
+    "radical": "无",
+    "structure": "词语",
+    "strokeCount": 0,
+    "shapeNote": "",
+    "meaning": "形容言行过分做作，不自然。",
+    "words": ["矫揉造作"],
+    "lessonSentence": "她说话总是<span>娇柔造作</span>。",
+    "extraSentence": "做事不要<span>娇柔造作</span>。",
+    "teachingTips": "词语无笔顺，此处不显示。",
+    "funNote": "常用于人物性格描写。"
+  }
+]
