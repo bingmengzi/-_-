@@ -1,0 +1,58 @@
+[
+  {
+    "char": "日",
+    "pinyin": "rì",
+    "radical": "日",
+    "structure": "独体字",
+    "strokeCount": 4,
+    "shapeNote": "像太阳，中间一横略短。",
+    "meaning": "太阳，表示白天。",
+    "words": ["日光", "日出", "今日"],
+    "lessonSentence": "早晨的<span>日</span>光照亮大地。",
+    "extraSentence": "今天的<span>日</span>色十分明亮。",
+    "teachingTips": "上横最长，中横最短，下横居中。",
+    "funNote": "“日”是象形文字，古字像一个圆。"
+  },
+  {
+    "char": "月",
+    "pinyin": "yuè",
+    "radical": "月",
+    "structure": "独体字",
+    "strokeCount": 4,
+    "shapeNote": "像一弯月亮。",
+    "meaning": "月亮，也表示月份。",
+    "words": ["月亮", "月光"],
+    "lessonSentence": "弯弯的<span>月</span>挂在天上。",
+    "extraSentence": "今晚的<span>月</span>亮很圆。",
+    "teachingTips": "竖略向内弯。",
+    "funNote": "月的甲骨文像弯月。"
+  },
+  {
+    "char": "山",
+    "pinyin": "shān",
+    "radical": "山",
+    "structure": "独体字",
+    "strokeCount": 3,
+    "shapeNote": "像三座山峰，中间高。",
+    "meaning": "高高的山。",
+    "words": ["高山", "山峰"],
+    "lessonSentence": "远处的<span>山</span>连成一片。",
+    "extraSentence": "我们在<span>山</span>脚下种树。",
+    "teachingTips": "中间竖要最高。",
+    "funNote": "“山”也是象形字。"
+  },
+  {
+    "char": "娇柔造作",
+    "pinyin": "jiāo róu zào zuò",
+    "radical": "无",
+    "structure": "词语",
+    "strokeCount": 0,
+    "shapeNote": "",
+    "meaning": "形容言行做作、不自然。",
+    "words": ["矫揉造作"],
+    "lessonSentence": "她说话总是<span>娇柔造作</span>。",
+    "extraSentence": "我们不要<span>娇柔造作</span>。",
+    "teachingTips": "这是词语，不显示笔顺。",
+    "funNote": "常用于人物描写。"
+  }
+]
